@@ -1,0 +1,33 @@
+# SWE302 Assignments - Root .gitignore
+
+# System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# AI assistant files
+CLAUDE.md
+*.copilotmd
+
+# Assignment-specific (keep assignment instructions and reports)
+# Note: We want to keep ASSIGNMENT_*.md files
+# Individual project .gitignore files handle their own exclusions

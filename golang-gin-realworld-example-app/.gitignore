@@ -1,0 +1,43 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/bower_components
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+
+
+#System Files
+.DS_Store
+Thumbs.db
+
+vendor/*
+!vendor/vendor.json
+
+tmp/*
+
+# Test databases
+gorm.db
+gorm_test.db
+*.db
+
+# Test coverage files
+coverage.txt
+coverage.out
+coverage.html
+
+# Binary executables
+realworld-server
+*.exe
+*.test
+
+# Backup files
+bak.*
+
+# AI assistant files
+CLAUDE.md
