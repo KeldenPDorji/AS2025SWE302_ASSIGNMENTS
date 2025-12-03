@@ -113,32 +113,32 @@ This folder contains all required deliverables for Assignment 2, organized by ta
 ASSIGNMENT_2/
 ├── README.md (this file)
 │
-├── Task 1: Snyk (SAST)
+├── task1_snyk/
 │   ├── snyk-backend-analysis.md
-│   ├── snyk-frontend-analysis.md
-│   ├── snyk-remediation-plan.md
-│   ├── snyk-fixes-applied.md
 │   ├── snyk-backend-report.json
+│   ├── snyk-frontend-analysis.md
 │   ├── snyk-frontend-report.json
 │   ├── snyk-code-report.json
+│   ├── snyk-remediation-plan.md
+│   ├── snyk-fixes-applied.md
 │   └── snyk-projects-overview.png
 │
-├── Task 2: SonarQube (SAST)
+├── task2_sonarqube/
 │   ├── sonarqube-backend-analysis.md
 │   ├── sonarqube-frontend-analysis.md
 │   └── security-hotspots-review.md
 │
-└── Task 3: OWASP ZAP (DAST)
+└── task3_zap/
     ├── zap-passive-scan-analysis.md
     ├── zap-active-scan-analysis.md
+    ├── zap-active-report.html
+    ├── zap-active-report.xml
+    ├── zap-active-report.json
     ├── zap-api-security-analysis.md
     ├── zap-fixes-applied.md
     ├── security-headers-analysis.md
     ├── final-security-assessment.md
     ├── zap-baseline-report.html
-    ├── zap-active-report.html
-    ├── zap-active-report.xml
-    ├── zap-active-report.json
     ├── zap-verification-scan.html
     ├── zap-verification-scan.json
     └── zap.yaml
@@ -150,17 +150,17 @@ ASSIGNMENT_2/
 
 | Requirement | Status | Evidence |
 |------------|--------|----------|
-| Snyk backend scan & analysis | ✅ Complete | snyk-backend-analysis.md + JSON report |
-| Snyk frontend scan & analysis | ✅ Complete | snyk-frontend-analysis.md + JSON reports |
+| Snyk backend scan & analysis | ✅ Complete | task1_snyk/snyk-backend-analysis.md + JSON report |
+| Snyk frontend scan & analysis | ✅ Complete | task1_snyk/snyk-frontend-analysis.md + JSON reports |
 | Fix 3+ critical/high vulnerabilities | ✅ Complete | Fixed all 8 vulnerabilities |
-| SonarQube backend analysis | ✅ Complete | sonarqube-backend-analysis.md |
-| SonarQube frontend analysis | ✅ Complete | sonarqube-frontend-analysis.md |
-| Security hotspots review | ✅ Complete | security-hotspots-review.md |
-| ZAP passive scan | ✅ Complete | zap-passive-scan-analysis.md + HTML report |
-| ZAP active scan | ✅ Complete | zap-active-scan-analysis.md + 3 formats |
-| ZAP API testing | ✅ Complete | zap-api-security-analysis.md |
-| Security headers implementation | ✅ Complete | security-headers-analysis.md + code |
-| Final security assessment | ✅ Complete | final-security-assessment.md |
+| SonarQube backend analysis | ✅ Complete | task2_sonarqube/sonarqube-backend-analysis.md |
+| SonarQube frontend analysis | ✅ Complete | task2_sonarqube/sonarqube-frontend-analysis.md |
+| Security hotspots review | ✅ Complete | task2_sonarqube/security-hotspots-review.md |
+| ZAP passive scan | ✅ Complete | task3_zap/zap-passive-scan-analysis.md + HTML report |
+| ZAP active scan | ✅ Complete | task3_zap/zap-active-scan-analysis.md + 3 formats |
+| ZAP API testing | ✅ Complete | task3_zap/zap-api-security-analysis.md |
+| Security headers implementation | ✅ Complete | task3_zap/security-headers-analysis.md + code |
+| Final security assessment | ✅ Complete | task3_zap/final-security-assessment.md |
 | Verification scans | ✅ Complete | Fresh ZAP scan confirms all fixes |
 
 ---
@@ -172,11 +172,13 @@ ASSIGNMENT_2/
 cd ../golang-gin-realworld-example-app && snyk test
 cd ../react-redux-realworld-example-app && snyk test
 # Expected: "✓ Tested for known issues, no vulnerable paths found."
+# View reports: task1_snyk/snyk-*-report.json
 ```
 
 ### 2. SonarQube Results
 - Visit: https://sonarcloud.io/project/overview?id=KeldenPDorji_AS2025SWE302_ASSIGNMENTS
 - Check: Dashboard shows 73 issues categorized
+- View analysis: task2_sonarqube/*.md
 
 ### 3. Security Headers
 ```bash
@@ -186,6 +188,7 @@ cd ../golang-gin-realworld-example-app && go run hello.go
 # Test headers
 curl -I http://localhost:8080/api/articles
 # Expected: All 9 security headers present
+# View implementation: task3_zap/security-headers-analysis.md
 ```
 
 ### 4. ZAP Verification
@@ -194,6 +197,7 @@ curl -I http://localhost:8080/api/articles
 docker run --rm -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable \
   zap-baseline.py -t http://host.docker.internal:8080
 # Expected: PASS: 66 tests, FAIL: 0 tests
+# View reports: task3_zap/zap-*.html
 ```
 
 ---
