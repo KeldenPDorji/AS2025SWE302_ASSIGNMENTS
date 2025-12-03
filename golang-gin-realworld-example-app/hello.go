@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 
-	"github.com/jinzhu/gorm"
 	"realworld-backend/articles"
 	"realworld-backend/common"
 	"realworld-backend/users"
+
+	"github.com/jinzhu/gorm"
 )
 
 func Migrate(db *gorm.DB) {
@@ -28,6 +29,9 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
+
+	// Apply security headers middleware FIRST
+	r.Use(common.SecurityHeaders())
 
 	// Configure CORS
 	r.Use(cors.New(cors.Config{

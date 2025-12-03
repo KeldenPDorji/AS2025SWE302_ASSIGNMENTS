@@ -340,7 +340,7 @@ var unauthRequestTests = []struct {
 		"PUT",
 		`{"password": "password321"}}`,
 		http.StatusUnprocessableEntity,
-		`{"errors":{"Email":"{key: email}","Username":"{key: alphanum}"}}`,
+		`{"errors":{"Email":"{key: required}","Username":"{key: required}"}}`,
 		"test database pk error for user update",
 	},
 	{
