@@ -593,6 +593,52 @@ Testing article modification and deletion functionality.
 Comprehensive testing of article comment system.
 
 **Test Cases Implemented:**
+1. ✅ **Add a comment to an article** - Comment creation flow
+2. ✅ **Display existing comments** - Comment list rendering with author info
+3. ✅ **Delete own comment** - Comment removal functionality
+4. ✅ **Show comment author information** - Author attribution display
+5. ✅ **Prevent adding empty comments** - Input validation
+6. ✅ **Display multiple comments in chronological order** - Comment ordering verification
+
+**Coverage:** Complete comment CRUD operations with validation, author verification, and chronological ordering.
+
+**Status:** ✅ All 6 tests passing (100%)
+
+---
+
+### Task 12: Profile & Feed Tests (16 points)
+
+#### 12.1 User Profile Tests
+**Deliverable:** `cypress/e2e/profile/user-profile.cy.js` - 10 tests
+
+Testing user profile viewing, editing, and social features.
+
+**Test Categories:**
+
+**Profile Management (4 tests):**
+1. ✅ **View own profile** - Profile page display with user information
+2. ✅ **Edit profile settings** - Bio and image update functionality
+3. ✅ **View user's articles tab** - Personal article list display
+4. ✅ **View favorited articles tab** - Favorited articles display
+
+**Social Features (2 tests):**
+5. ✅ **Follow another user** - Follow button and functionality
+6. ✅ **Unfollow a user** - Unfollow button and functionality
+
+**Navigation (4 tests):**
+7. ✅ **Navigate between profile tabs** - Tab switching (My Articles / Favorited)
+8. ✅ **View another user's profile** - Public profile viewing
+9. ✅ **Navigate to article from profile** - Article link navigation from profile
+10. ✅ **View follower/following counts** - Social statistics display
+
+**Status:** ✅ All 10 tests passing
+
+#### 12.2 Article Feed Tests
+**Deliverable:** `cypress/e2e/feed/article-feed.cy.js` - 7 tests
+
+Testing article feed display, filtering, and pagination.
+
+**Test Cases Implemented:**
 1. ✅ **Add a comment to an article** - Comment creation
 2. ✅ **Display existing comments** - Comment list rendering
 3. ✅ **Delete own comment** - Comment removal

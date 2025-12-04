@@ -4,6 +4,11 @@
     "username": "cypresstest",
     "password": "CypressTest123!"
   },
+  "secondUser": {
+    "email": "cypresstest1@example.com",
+    "username": "cypresstest1",
+    "password": "CypressTest123!"
+  },
   "testUser1": {
     "email": "cypresstest1@example.com",
     "username": "cypresstest1",

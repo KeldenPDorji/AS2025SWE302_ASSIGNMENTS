@@ -38,7 +38,7 @@ Cypress.Commands.add('logout', () => {
 });
 
 // Create article command
-Cypress.Commands.add('createArticle', (articleData) => {
+Cypress.Commands.add('createArticle', (title, description, body, tagList = []) => {
   const token = window.localStorage.getItem('jwt');
   return cy.request({
     method: 'POST',
@@ -47,9 +47,12 @@ Cypress.Commands.add('createArticle', (articleData) => {
       'Authorization': `Token ${token}`
     },
     body: {
-      article: articleData
+      article: {
+        title,
+        description,
+        body,
+        tagList
+      }
     }
-  }).then((response) => {
-    return response.body.article;
   });
 });
