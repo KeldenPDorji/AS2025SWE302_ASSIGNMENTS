@@ -267,3 +267,19 @@ func DeleteCommentModel(condition interface{}) error {
 	err := db.Where(condition).Delete(CommentModel{}).Error
 	return err
 }
+
+// AutoMigrate and add performance indexes
+func AutoMigrateArticles(db *gorm.DB) {
+	db.AutoMigrate(&ArticleModel{})
+	db.AutoMigrate(&ArticleUserModel{})
+	db.AutoMigrate(&FavoriteModel{})
+	db.AutoMigrate(&TagModel{})
+	db.AutoMigrate(&CommentModel{})
+
+	// Add performance indexes
+	db.Model(&ArticleModel{}).AddIndex("idx_article_created_at", "created_at")
+	db.Model(&ArticleModel{}).AddIndex("idx_article_slug", "slug")
+	db.Model(&CommentModel{}).AddIndex("idx_comment_article_id", "article_id")
+	db.Model(&FavoriteModel{}).AddIndex("idx_favorite_article_id", "favorite_id")
+	db.Model(&FavoriteModel{}).AddIndex("idx_favorite_user_id", "favorite_by_id")
+}

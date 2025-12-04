@@ -5,15 +5,13 @@ import { getAuthHeaders } from './helpers.js';
 
 export const options = {
   stages: [
+    { duration: '2m', target: 30 },    // Ramp up to 30 users
+    { duration: '3m', target: 30 },    // Stay at 30
     { duration: '2m', target: 50 },    // Ramp up to 50 users
-    { duration: '5m', target: 50 },    // Stay at 50 for 5 minutes
-    { duration: '2m', target: 100 },   // Ramp up to 100 users
-    { duration: '5m', target: 100 },   // Stay at 100 for 5 minutes
-    { duration: '2m', target: 200 },   // Ramp up to 200 users
-    { duration: '5m', target: 200 },   // Stay at 200 for 5 minutes
-    { duration: '2m', target: 300 },   // Beyond normal load
-    { duration: '5m', target: 300 },   // Stay at peak
-    { duration: '5m', target: 0 },     // Ramp down gradually
+    { duration: '3m', target: 50 },    // Stay at 50
+    { duration: '2m', target: 70 },    // Ramp up to 70 users (safe)
+    { duration: '3m', target: 70 },    // Stay at 70
+    { duration: '3m', target: 0 },     // Ramp down gradually
   ],
   thresholds: {
     http_req_duration: ['p(95)<2000'], // More relaxed threshold

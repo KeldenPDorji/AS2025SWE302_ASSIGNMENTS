@@ -10,3 +10,11 @@ export const TEST_USER = {
   password: 'PerfTest123!',
   username: 'perftest'
 };
+
+// Grafana Cloud k6 output configuration
+// To use: set K6_CLOUD_TOKEN environment variable
+// Or run: k6 run --out cloud script.js
+export const GRAFANA_CLOUD_CONFIG = {
+  projectID: 3855163, // Your Grafana Cloud project ID
+  name: 'RealWorld Conduit Performance Test'
+};
