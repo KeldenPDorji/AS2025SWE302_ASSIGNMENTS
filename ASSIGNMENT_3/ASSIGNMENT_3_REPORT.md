@@ -555,7 +555,7 @@ Testing article creation workflow with validation and tag management.
 **Status:** ✅ All 5 tests passing
 
 #### 10.2 Article Reading Tests
-**Deliverable:** `cypress/e2e/articles/read-article.cy.js` - 5 tests
+**Deliverable:** `cypress/e2e/articles/read-article.cy.js` - 4 tests
 
 Testing article viewing and display functionality.
 
@@ -563,10 +563,9 @@ Testing article viewing and display functionality.
 1. ✅ **View article details** - Complete article display
 2. ✅ **Display article metadata** - Author, date, tags visible
 3. ✅ **View article content** - Body text rendering
-4. ✅ **Display article tags** - Tag list rendering
-5. ✅ **Navigate from feed to article** - Navigation flow
+4. ✅ **Navigate from feed to article** - Navigation flow
 
-**Status:** ✅ All 5 tests passing
+**Status:** ✅ All 4 tests passing
 
 #### 10.3 Article Editing and Deletion Tests
 **Deliverable:** `cypress/e2e/articles/edit-article.cy.js` - 6 tests
@@ -581,7 +580,7 @@ Testing article modification and deletion functionality.
 5. ✅ **Delete article** - Article removal
 6. ✅ **Favorite/unfavorite article** - Like functionality
 
-**Status:** ✅ All 6 tests passing, total 16 article management tests (100%)
+**Status:** ✅ All 6 tests passing, total 15 article management tests (100%)
 
 ---
 
@@ -609,78 +608,21 @@ Comprehensive testing of article comment system.
 ### Task 12: Profile & Feed Tests (16 points)
 
 #### 12.1 User Profile Tests
-**Deliverable:** `cypress/e2e/profile/user-profile.cy.js` - 10 tests
+**Deliverable:** `cypress/e2e/profile/user-profile.cy.js` - 5 tests
 
 Testing user profile viewing, editing, and social features.
 
-**Test Categories:**
-
-**Profile Management (4 tests):**
+**Test Cases Implemented:**
 1. ✅ **View own profile** - Profile page display with user information
 2. ✅ **Edit profile settings** - Bio and image update functionality
 3. ✅ **View user's articles tab** - Personal article list display
-4. ✅ **View favorited articles tab** - Favorited articles display
+4. ✅ **Follow another user** - Follow button and functionality
+5. ✅ **View another user's profile** - Public profile viewing
 
-**Social Features (2 tests):**
-5. ✅ **Follow another user** - Follow button and functionality
-6. ✅ **Unfollow a user** - Unfollow button and functionality
-
-**Navigation (4 tests):**
-7. ✅ **Navigate between profile tabs** - Tab switching (My Articles / Favorited)
-8. ✅ **View another user's profile** - Public profile viewing
-9. ✅ **Navigate to article from profile** - Article link navigation from profile
-10. ✅ **View follower/following counts** - Social statistics display
-
-**Status:** ✅ All 10 tests passing
+**Status:** ✅ All 5 tests passing
 
 #### 12.2 Article Feed Tests
-**Deliverable:** `cypress/e2e/feed/article-feed.cy.js` - 7 tests
-
-Testing article feed display, filtering, and pagination.
-
-**Test Cases Implemented:**
-1. ✅ **Add a comment to an article** - Comment creation
-2. ✅ **Display existing comments** - Comment list rendering
-3. ✅ **Delete own comment** - Comment removal
-4. ✅ **Show comment author information** - Author attribution
-5. ✅ **Prevent adding empty comments** - Input validation
-6. ✅ **Display multiple comments in chronological order** - Comment ordering
-
-**Coverage:** Complete comment CRUD operations with validation and author verification.
-
-**Status:** ✅ All 6 tests passing (100%)
-
----
-
-### Task 12: Profile & Feed Tests (16 points)
-
-#### 12.1 User Profile Tests
-**Deliverable:** `cypress/e2e/profile/user-profile.cy.js` - 10 tests
-
-Testing user profile viewing, editing, and social features.
-
-**Test Categories:**
-
-**Profile Management (4 tests):**
-1. ✅ **View own profile** - Profile page display
-2. ✅ **Edit profile settings** - Bio and image update
-3. ✅ **View user's articles tab** - Article list display
-4. ✅ **View favorited articles tab** - Favorites display
-
-**Social Features (2 tests):**
-5. ✅ **Follow another user** - Follow functionality
-6. ✅ **Unfollow a user** - Unfollow functionality
-
-**Navigation (4 tests):**
-7. ✅ **Navigate between profile tabs** - Tab switching
-8. ✅ **View another user's profile** - Public profile viewing
-9. ✅ **Navigate to article from profile** - Article link navigation
-10. ✅ **View follower/following counts** - Social statistics
-
-**Status:** ✅ All 10 tests passing
-
-#### 12.2 Article Feed Tests
-**Deliverable:** `cypress/e2e/feed/article-feed.cy.js` - 7 tests
+**Deliverable:** `cypress/e2e/feed/article-feed.cy.js` - 5 tests
 
 Testing article feed display, filtering, and pagination.
 
@@ -688,19 +630,17 @@ Testing article feed display, filtering, and pagination.
 1. ✅ **Display global feed** - All articles view
 2. ✅ **Display personal feed** - Followed authors feed
 3. ✅ **Filter feed by tag** - Tag-based filtering
-4. ✅ **Paginate through articles** - Pagination functionality
-5. ✅ **Display article preview** - Article card rendering
-6. ✅ **Navigate to article from feed** - Feed click navigation
-7. ✅ **Display popular tags** - Tag cloud rendering
+4. ✅ **Display article preview** - Article card rendering
+5. ✅ **Navigate to article from feed** - Feed click navigation
 
-**Status:** ✅ All 17 profile & feed tests passing (100%)
+**Status:** ✅ All 10 profile & feed tests passing (100%)
 
 ---
 
 ### Task 13: Complete Workflow Tests (20 points)
 
 #### 13.1 End-to-End User Journey Tests
-**Deliverable:** `cypress/e2e/workflows/complete-user-journey.cy.js` - 6 tests
+**Deliverable:** `cypress/e2e/workflows/complete-user-journey.cy.js` - 3 tests
 
 Testing complete user journeys that span multiple features.
 
@@ -712,21 +652,12 @@ Testing complete user journeys that span multiple features.
 2. ✅ **Full article interaction workflow**
    - Login → Browse Feed → Read Article → Add Comment → Favorite
 
-3. ✅ **User profile and settings workflow**
-   - Login → Edit Profile → Update Settings → View Updated Profile
-
-4. ✅ **Social interaction workflow**
-   - Login → Find User → Follow → View Their Articles → Comment
-
-5. ✅ **Complete article lifecycle workflow**
-   - Create → Publish → Edit → Share → Delete
-
-6. ✅ **Error recovery workflow**
-   - Handle Network Errors → Retry Operations → Verify State
+3. ✅ **Complete article lifecycle workflow**
+   - Create → Publish → Edit → Delete
 
 **Coverage:** Complete end-to-end user journeys testing integration between all major features.
 
-**Status:** ✅ All 6 workflow tests passing (100%)
+**Status:** ✅ All 3 workflow tests passing (100%)
 
 ---
 
@@ -793,15 +724,15 @@ Conducted cross-browser compatibility testing to verify consistent behavior acro
 
 | Test Suite | Tests | Pass | Status | Coverage |
 |------------|-------|------|--------|----------|
-| Authentication (Registration) | 5 | 5 | ✅ 100% | User registration flow |
 | Authentication (Login) | 5 | 5 | ✅ 100% | Login/logout/session |
+| Authentication (Registration) | 5 | 5 | ✅ 100% | User registration flow |
+| Article Feed | 5 | 5 | ✅ 100% | Feed & filtering |
 | Article Creation | 5 | 5 | ✅ 100% | Article creation & tags |
-| Article Reading | 5 | 5 | ✅ 100% | Article viewing |
 | Article Editing/Deletion | 6 | 6 | ✅ 100% | Article CRUD |
+| Article Reading | 4 | 4 | ✅ 100% | Article viewing |
 | Comments | 6 | 6 | ✅ 100% | Comment functionality |
-| User Profile | 10 | 10 | ✅ 100% | Profile & social features |
-| Article Feed | 7 | 7 | ✅ 100% | Feed & filtering |
-| Complete Workflows | 6 | 6 | ✅ 100% | End-to-end journeys |
+| User Profile | 5 | 5 | ✅ 100% | Profile & social features |
+| Complete Workflows | 3 | 3 | ✅ 100% | End-to-end journeys |
 
 #### Test Framework Quality
 
@@ -854,10 +785,10 @@ npx cypress run --browser electron --headless
 #### Deliverables Completed
 ✅ **Cypress Setup:** Complete configuration with custom commands and fixtures  
 ✅ **Authentication Tests:** 10 tests covering registration, login, logout, session (100%)  
-✅ **Article Management:** 16 tests covering full CRUD operations (100%)  
+✅ **Article Management:** 15 tests covering full CRUD operations (100%)  
 ✅ **Comments Tests:** 6 tests covering comment functionality (100%)  
-✅ **Profile & Feed Tests:** 17 tests covering social features and feeds (100%)  
-✅ **Workflow Tests:** 6 tests covering complete end-to-end user journeys (100%)  
+✅ **Profile & Feed Tests:** 10 tests covering social features and feeds (100%)  
+✅ **Workflow Tests:** 3 tests covering complete end-to-end user journeys (100%)  
 ✅ **Cross-Browser Testing:** Verified on Chromium browsers with compatibility report  
 ✅ **Documentation:** Comprehensive reports with visual evidence
 
@@ -1040,12 +971,12 @@ cypress/e2e/
 - ✅ `cypress/e2e/auth/registration.cy.js` - Registration tests (5 tests)
 - ✅ `cypress/e2e/auth/login.cy.js` - Login/logout tests (5 tests)
 - ✅ `cypress/e2e/articles/create-article.cy.js` - Article creation (5 tests)
-- ✅ `cypress/e2e/articles/read-article.cy.js` - Article viewing (5 tests)
+- ✅ `cypress/e2e/articles/read-article.cy.js` - Article viewing (4 tests)
 - ✅ `cypress/e2e/articles/edit-article.cy.js` - Article editing/deletion (6 tests)
 - ✅ `cypress/e2e/comments/comments.cy.js` - Comment functionality (6 tests)
-- ✅ `cypress/e2e/profile/user-profile.cy.js` - Profile/social features (10 tests)
-- ✅ `cypress/e2e/feed/article-feed.cy.js` - Feed and filtering (7 tests)
-- ✅ `cypress/e2e/workflows/complete-user-journey.cy.js` - E2E workflows (6 tests)
+- ✅ `cypress/e2e/profile/user-profile.cy.js` - Profile/social features (5 tests)
+- ✅ `cypress/e2e/feed/article-feed.cy.js` - Feed and filtering (5 tests)
+- ✅ `cypress/e2e/workflows/complete-user-journey.cy.js` - E2E workflows (3 tests)
 
 **Configuration & Support (4 files):**
 - ✅ `cypress.config.js` - Cypress configuration
@@ -1082,10 +1013,10 @@ This assignment successfully completed all requirements for Performance Testing 
 **Part B: End-to-End Testing with Cypress** ✅ **COMPLETE (50/50 points)**
 - ✅ Cypress Setup (3 points) - Complete configuration with custom commands
 - ✅ Authentication Tests (20 points) - 10 tests covering all auth flows
-- ✅ Article Management (24 points) - 16 tests covering full CRUD operations
+- ✅ Article Management (24 points) - 15 tests covering full CRUD operations
 - ✅ Comments Tests (16 points) - 6 tests covering comment functionality
-- ✅ Profile & Feed Tests (16 points) - 17 tests covering social features
-- ✅ Complete Workflows (20 points) - 6 end-to-end user journey tests
+- ✅ Profile & Feed Tests (16 points) - 10 tests covering social features
+- ✅ Complete Workflows (20 points) - 3 end-to-end user journey tests
 - ✅ Cross-Browser Testing (10 points) - Verified on Chromium browsers
 - ✅ Documentation (2 points) - Comprehensive reports with evidence
 
