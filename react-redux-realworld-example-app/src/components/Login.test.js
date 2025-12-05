@@ -91,19 +91,21 @@ describe('Login Component', () => {
   });
 
   it('should display password value from props', () => {
-    const propsWithPassword = { ...mockProps, password: 'mypassword' };
+    const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
+    const propsWithPassword = { ...mockProps, password: testPassword };
     const wrapper = shallow(<LoginComponent {...propsWithPassword} />);
     const passwordInput = wrapper.find('input[type="password"]');
     
-    expect(passwordInput.prop('value')).toBe('mypassword');
+    expect(passwordInput.prop('value')).toBe(testPassword);
   });
 
   // Test 3: Form submission
   it('should call onSubmit when form is submitted', () => {
+    const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
     const propsWithData = {
       ...mockProps,
       email: 'user@example.com',
-      password: 'password123'
+      password: testPassword
     };
     const wrapper = shallow(<LoginComponent {...propsWithData} />);
     const form = wrapper.find('form');

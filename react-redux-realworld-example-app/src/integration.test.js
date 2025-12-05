@@ -85,10 +85,11 @@ describe('Frontend Integration Tests', () => {
     });
 
     it('should dispatch LOGIN action on form submission', () => {
+      const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
       const initialState = {
         auth: {
           email: 'test@test.com',
-          password: 'password123',
+          password: testPassword,
           inProgress: false
         },
         common: {
@@ -114,10 +115,11 @@ describe('Frontend Integration Tests', () => {
     });
 
     it('should disable submit button when login is in progress', () => {
+      const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
       const initialState = {
         auth: {
           email: 'test@test.com',
-          password: 'password123',
+          password: testPassword,
           inProgress: true
         },
         common: {
@@ -139,10 +141,11 @@ describe('Frontend Integration Tests', () => {
     });
 
     it('should display errors when login fails', () => {
+      const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
       const initialState = {
         auth: {
           email: 'test@test.com',
-          password: 'wrongpassword',
+          password: testPassword,
           inProgress: false,
           errors: {
             'email or password': ['is invalid']
@@ -502,10 +505,11 @@ describe('Frontend Integration Tests', () => {
   describe('Full User Journey', () => {
     it('should complete login to article creation flow', () => {
       // Step 1: Login
+      const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
       const loginState = {
         auth: {
           email: 'test@test.com',
-          password: 'password123',
+          password: testPassword,
           inProgress: false
         },
         common: {
