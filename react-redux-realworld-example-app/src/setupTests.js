@@ -1,13 +1,16 @@
 // CRITICAL: Polyfills MUST be set before any imports
 const { TextEncoder, TextDecoder } = require('util');
-const { ReadableStream } = require('stream/web');
 const { MessageChannel, MessagePort } = require('worker_threads');
 
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
-global.ReadableStream = ReadableStream;
 global.MessageChannel = MessageChannel;
 global.MessagePort = MessagePort;
+
+// ReadableStream polyfill for Node v16
+if (typeof global.ReadableStream === 'undefined') {
+  global.ReadableStream = class ReadableStream {};
+}
 
 // Now safe to import
 import '@testing-library/jest-dom';
