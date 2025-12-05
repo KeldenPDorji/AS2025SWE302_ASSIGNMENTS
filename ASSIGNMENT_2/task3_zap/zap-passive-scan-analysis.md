@@ -1,109 +1,149 @@
-# ZAP Passive Scan Analysis
+# 🔍 ZAP Passive Scan Analysis
 
-## Scan Information
-- **Date:** November 25, 2025
-- **Tool:** OWASP ZAP Baseline Scan (via Docker)
-- **Target:** http://localhost:4100 (React Redux RealWorld Example App)
-- **Scan Type:** Passive Scan
-- **Scan Duration:** ~2 minutes
-- **Command Used:**
-  ```bash
-  docker run --rm -v $(pwd):/zap/wrk:rw -t ghcr.io/zaproxy/zaproxy:stable \
-    zap-baseline.py -t http://host.docker.internal:4100 \
-    -r zap-baseline-report.html -w zap-baseline-report.md
-  ```
+> **OWASP ZAP Dynamic Application Security Testing - Passive Scan Results**  
+> **Application:** RealWorld Conduit (Frontend + Backend)  
+> **Scan Type:** Passive Security Analysis
 
 ---
 
-## 1. Alerts Summary
+## 📊 1. Alerts Summary
 
-### Overall Statistics
-- **Total Alerts:** 12 unique alert types
-- **Total Instances:** 32 instances across all URLs
-- **URLs Scanned:** 5 unique URLs
-- **Scan Result:** 56 PASS, 11 WARN-NEW, 0 FAIL-NEW
+### 🎯 Overall Statistics
 
-### Risk Level Distribution
+| Metric | Value |
+|--------|-------|
+| **Total Alerts** | 12 unique alert types |
+| **Total Instances** | 32 instances across all URLs |
+| **URLs Scanned** | 5 unique URLs |
+| **Scan Result** | 56 PASS, 11 WARN-NEW, 0 FAIL-NEW |
+| **Critical Issues** | 0 🟢 |
+| **High Issues** | 0 🟢 |
+| **Medium Issues** | 4 🟡 |
+| **Low Issues** | 4 🔵 |
+| **Informational** | 4 ℹ️ |
 
-| Risk Level | Number of Alerts |
-|------------|------------------|
-| High | 0 |
-| Medium | 4 |
-| Low | 4 |
-| Informational | 4 |
-| **Total** | **12** |
+### 📈 Risk Level Distribution
 
-### Alert Types Summary
+| Risk Level | Count | Percentage | Status |
+|------------|-------|------------|--------|
+| 🔴 **Critical** | 0 | 0% | ✅ None Found |
+| 🟠 **High** | 0 | 0% | ✅ None Found |
+| 🟡 **Medium** | 4 | 33.3% | ⚠️ Requires Action |
+| 🔵 **Low** | 4 | 33.3% | ℹ️ Advisory |
+| ⚪ **Informational** | 4 | 33.3% | ℹ️ Awareness |
+| **Total** | **12** | **100%** | — |
 
-| Alert Name | Risk Level | Instances | CWE | WASC |
-|------------|-----------|-----------|-----|------|
-| CSP: Failure to Define Directive with No Fallback | Medium | 2 | CWE-693 | WASC-15 |
-| Content Security Policy (CSP) Header Not Set | Medium | 1 | CWE-693 | WASC-15 |
-| Missing Anti-clickjacking Header | Medium | 1 | CWE-1021 | WASC-15 |
-| Sub Resource Integrity Attribute Missing | Medium | 1 | CWE-345 | WASC-15 |
-| Insufficient Site Isolation Against Spectre Vulnerability | Low | 5 | CWE-693 | WASC-14 |
-| Permissions Policy Header Not Set | Low | 4 | CWE-693 | WASC-15 |
-| Server Leaks Information via "X-Powered-By" | Low | 5 | CWE-497 | WASC-13 |
-| X-Content-Type-Options Header Missing | Low | 3 | CWE-693 | WASC-15 |
-| Information Disclosure - Suspicious Comments | Informational | 2 | CWE-615 | WASC-13 |
-| Modern Web Application | Informational | 1 | N/A | N/A |
-| Storable and Cacheable Content | Informational | 4 | CWE-524 | WASC-13 |
-| Storable but Non-Cacheable Content | Informational | 1 | CWE-524 | WASC-13 |
+### 📋 Alert Types Summary
+
+| # | Alert Name | Risk | Instances | CWE | WASC |
+|---|-----------|------|-----------|-----|------|
+| 1 | 🟡 CSP: Failure to Define Directive with No Fallback | Medium | 2 | CWE-693 | WASC-15 |
+| 2 | 🟡 Content Security Policy (CSP) Header Not Set | Medium | 1 | CWE-693 | WASC-15 |
+| 3 | 🟡 Missing Anti-clickjacking Header | Medium | 1 | CWE-1021 | WASC-15 |
+| 4 | 🟡 Sub Resource Integrity Attribute Missing | Medium | 1 | CWE-345 | WASC-15 |
+| 5 | 🔵 Insufficient Site Isolation Against Spectre | Low | 5 | CWE-693 | WASC-14 |
+| 6 | 🔵 Permissions Policy Header Not Set | Low | 4 | CWE-693 | WASC-15 |
+| 7 | 🔵 Server Leaks Information via "X-Powered-By" | Low | 5 | CWE-497 | WASC-13 |
+| 8 | 🔵 X-Content-Type-Options Header Missing | Low | 3 | CWE-693 | WASC-15 |
+| 9 | ℹ️ Information Disclosure - Suspicious Comments | Info | 2 | CWE-615 | WASC-13 |
+| 10 | ℹ️ Modern Web Application | Info | 1 | N/A | N/A |
+| 11 | ℹ️ Storable and Cacheable Content | Info | 4 | CWE-524 | WASC-13 |
+| 12 | ℹ️ Storable but Non-Cacheable Content | Info | 1 | CWE-524 | WASC-13 |
 
 ---
 
-## 2. High Priority Findings
+## 📸 Visual Evidence
 
-### No High or Critical Risk Issues Found ✅
+### ZAP Passive Scan Report Screenshot
 
-The passive scan did not identify any High or Critical severity vulnerabilities. However, there are **4 Medium severity issues** that require attention.
+![ZAP Passive Scan Results - Overview](zap-passive-report.png)
+
+*Figure 1: OWASP ZAP passive scan results showing 12 alert types across 32 instances. The scan identified 4 medium-risk security misconfigurations, primarily related to missing security headers.*
+
+**Key Findings Visible in Screenshot:**
+- ✅ 56 PASS alerts (security controls working correctly)
+- ⚠️ 11 WARN-NEW alerts (security issues requiring attention)
+- ❌ 0 FAIL-NEW alerts (no critical failures)
+- Primary concerns: Missing CSP, X-Frame-Options, and other security headers
 
 ---
 
-## 3. Medium Risk Findings (Require Action)
+## ✅ 2. High Priority Findings
 
-### Finding #1: Content Security Policy (CSP) Header Not Set
+### 🎉 No High or Critical Risk Issues Found!
 
-**Alert Name:** Content Security Policy (CSP) Header Not Set  
-**Risk Level:** Medium (High Confidence)  
-**CWE:** CWE-693 - Protection Mechanism Failure  
-**WASC:** WASC-15 - Application Misconfiguration  
-**OWASP Reference:** [https://www.zaproxy.org/docs/alerts/10038/](https://www.zaproxy.org/docs/alerts/10038/)
+> **Good News:** The passive scan did not identify any High or Critical severity vulnerabilities. The application's core security foundations appear sound.
 
-#### Affected URLs
+However, there are **4 Medium severity issues** that require attention before production deployment.
+
+---
+
+## ⚠️ 3. Medium Risk Findings (Require Action)
+
+### 🟡 Finding #1: Content Security Policy (CSP) Header Not Set
+
+| Property | Value |
+|----------|-------|
+| **Alert Name** | Content Security Policy (CSP) Header Not Set |
+| **Risk Level** | 🟡 Medium (High Confidence) |
+| **CWE** | [CWE-693](https://cwe.mitre.org/data/definitions/693.html) - Protection Mechanism Failure |
+| **WASC** | WASC-15 - Application Misconfiguration |
+| **OWASP Category** | A05:2021 - Security Misconfiguration |
+| **ZAP Reference** | [Alert 10038](https://www.zaproxy.org/docs/alerts/10038/) |
+
+#### 🎯 Affected URLs
 - `http://localhost:4100` (Main application page)
 
-#### Description
-Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including Cross-Site Scripting (XSS) and data injection attacks. These attacks are used for everything from data theft to site defacement or distribution of malware. CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page.
+#### 📝 Description
 
-The main application page does not set a Content-Security-Policy header, leaving it vulnerable to various injection attacks.
+Content Security Policy (CSP) is an added layer of security that helps to detect and mitigate certain types of attacks, including:
 
-#### Security Impact
-- **XSS Risk:** Without CSP, the application is more vulnerable to Cross-Site Scripting attacks
-- **Data Injection:** Attackers could inject malicious scripts from unauthorized sources
-- **Clickjacking:** Without proper CSP directives, iframe-based attacks are easier
-- **Data Exfiltration:** Malicious scripts could send sensitive data to attacker-controlled servers
+- 🛡️ **Cross-Site Scripting (XSS)**
+- 💉 **Data injection attacks**
+- 🎭 **Clickjacking**
+- 📤 **Data exfiltration**
 
-#### Evidence
-- **URL:** `http://localhost:4100`
-- **Method:** GET
-- **Parameter:** N/A
-- **Evidence:** Header not present in response
+CSP provides a set of standard HTTP headers that allow website owners to declare approved sources of content that browsers should be allowed to load on that page.
 
-#### Remediation
-Ensure that your web server, application server, or Express server is configured to set the Content-Security-Policy header. 
+> **⚠️ Issue:** The main application page does not set a Content-Security-Policy header, leaving it vulnerable to various injection attacks.
 
-**Recommended CSP Header:**
+#### 🔐 Security Impact
+
+| Attack Type | Risk Without CSP | Description |
+|-------------|------------------|-------------|
+| **XSS** | 🔴 High | Application more vulnerable to Cross-Site Scripting attacks |
+| **Data Injection** | 🟠 Medium-High | Attackers could inject malicious scripts from unauthorized sources |
+| **Clickjacking** | 🟠 Medium | Without proper CSP directives, iframe-based attacks are easier |
+| **Data Exfiltration** | 🟠 Medium | Malicious scripts could send sensitive data to attacker-controlled servers |
+
+#### 🔍 Evidence
+
 ```
+URL:       http://localhost:4100
+Method:    GET
+Parameter: Content-Security-Policy header
+Evidence:  Header not present in HTTP response
+```
+
+#### ✅ Remediation
+
+Ensure that your web server, application server, or Express server is configured to set the Content-Security-Policy header.
+
+**📋 Recommended CSP Header:**
+
+```http
 Content-Security-Policy: default-src 'self'; 
   script-src 'self' 'unsafe-inline' 'unsafe-eval'; 
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
   font-src 'self' https://fonts.gstatic.com; 
   img-src 'self' data: https:; 
   connect-src 'self' https://conduit.productionready.io;
+  frame-ancestors 'none';
 ```
 
-**Note:** `unsafe-inline` and `unsafe-eval` should be removed in production for better security, but may be required for React development builds.
+> **⚠️ Note:** `unsafe-inline` and `unsafe-eval` should be removed in production for better security, but may be required for React development builds.
+
+**Implementation Status:** ✅ **FIXED** - See `security-headers-analysis.md` for details
 
 ---
 
@@ -741,24 +781,11 @@ The OWASP ZAP passive scan identified **12 security issues** across **4 risk lev
 - [Content Security Policy Reference](https://content-security-policy.com/)
 - [MDN Web Security](https://developer.mozilla.org/en-US/docs/Web/Security)
 
-### Appendix B: Exported Reports
+### Appendix B: Exported Reports and Evidence
 
-- `zap-baseline-report.html` - Full interactive HTML report
-- `zap-baseline-report.md` - Markdown version for documentation
+#### 📄 HTML Report
 
-### Appendix C: Scan Configuration
-
-**ZAP Version:** Stable (via Docker)  
-**Scan Type:** Baseline (Passive)  
-**Target:** http://host.docker.internal:4100  
-**Spider:** Traditional spider  
-**Authentication:** None (passive scan)  
-**Scan Policy:** Default baseline  
-**Duration:** ~2 minutes  
-
----
-
-**Document Version:** 1.0  
-**Last Updated:** November 25, 2025  
-**Analyst:** Security Testing Team  
-**Status:** ✅ Complete - Ready for Active Scan Phase
+- **File:** `zap-passive-report.html`
+- **Size:** 69 KB
+- **Format:** Interactive HTML with expandable sections
+- **Contents:** Full detailed report with all alerts, evidence, and references

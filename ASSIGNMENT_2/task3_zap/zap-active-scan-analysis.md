@@ -1,70 +1,84 @@
-# ZAP Active Scan Analysis
+# 🎯 ZAP Active Scan Analysis
 
-## Scan Information
-- **Date:** November 25, 2025
-- **Tool:** OWASP ZAP Active Scan (via Docker)
-- **Target:** http://localhost:4100 (Frontend) + http://localhost:8080/api (Backend API)
-- **Scan Type:** Active Security Scan
-- **Scan Duration:** ~30 minutes
-- **Authentication:** Not configured (unauthenticated scan)
-- **Scan Policy:** Default active scan rules
-- **Command Used:**
-  ```bash
-  docker run --rm -v $(pwd):/zap/wrk:rw -t ghcr.io/zaproxy/zaproxy:stable \
-    zap-full-scan.py -t http://host.docker.internal:4100 \
-    -r zap-active-report.html -w zap-active-report.md \
-    -x zap-active-report.xml -J zap-active-report.json
-  ```
+> **OWASP ZAP Dynamic Application Security Testing - Active Scan Results**  
+> **Application:** RealWorld Conduit (Frontend + Backend)  
+> **Scan Type:** Active Security Analysis with OWASP Top 10 Policy
 
 ---
 
-## 1. Vulnerability Summary
+## 📊 1. Vulnerability Summary
 
-### Overall Statistics
-- **Total Alerts:** 13 unique alert types
-- **Total Instances:** 38 instances across all URLs
-- **URLs Tested:** 8 unique URLs
-- **High Severity:** 0 vulnerabilities
-- **Medium Severity:** 5 vulnerabilities
-- **Low Severity:** 4 vulnerabilities
-- **Informational:** 4 alerts
+### 🎯 Overall Statistics
 
-### Risk Level Distribution
+| Metric | Value |
+|--------|-------|
+| **Total Alerts** | 13 unique alert types |
+| **Total Instances** | 38 instances across all URLs |
+| **URLs Tested** | 8 unique URLs |
+| **Critical Issues** | 0 🟢 |
+| **High Severity** | 0 🟢 |
+| **Medium Severity** | 5 🟡 |
+| **Low Severity** | 4 🔵 |
+| **Informational** | 4 ℹ️ |
 
-| Risk Level | Number of Alerts | Number of Instances |
-|------------|------------------|---------------------|
-| High | 0 | 0 |
-| Medium | 5 | 12 |
-| Low | 4 | 21 |
-| Informational | 4 | 9 |
-| **Total** | **13** | **42** |
+### 📈 Risk Level Distribution
 
-### OWASP Top 10 (2021) Mapping
+| Risk Level | Alerts | Instances | Percentage | Status |
+|------------|--------|-----------|------------|--------|
+| 🔴 **Critical** | 0 | 0 | 0% | ✅ None Found |
+| 🟠 **High** | 0 | 0 | 0% | ✅ None Found |
+| 🟡 **Medium** | 5 | 12 | 38.5% | ⚠️ Requires Action |
+| 🔵 **Low** | 4 | 21 | 30.8% | ℹ️ Advisory |
+| ⚪ **Informational** | 4 | 9 | 30.8% | ℹ️ Awareness |
+| **Total** | **13** | **42** | **100%** | — |
 
-| OWASP Category | Status | Findings |
-|----------------|--------|----------|
-| A01:2021 – Broken Access Control | ⚠️ Partially Tested | No critical issues found in scan |
-| A02:2021 – Cryptographic Failures | ⚠️ Found | HTTP Only Site (Medium) |
-| A03:2021 – Injection | ✅ Tested | No SQL/XSS injection found |
-| A04:2021 – Insecure Design | ⚠️ Found | Missing security headers |
-| A05:2021 – Security Misconfiguration | ⚠️ Found | CSP, X-Frame-Options, HTTPS missing |
-| A06:2021 – Vulnerable Components | ✅ Addressed | (See Snyk analysis) |
-| A07:2021 – ID & Authentication Failures | ⚠️ Partial | Requires authenticated scanning |
-| A08:2021 – Software & Data Integrity | ⚠️ Found | Sub-Resource Integrity missing |
-| A09:2021 – Security Logging Failures | ℹ️ N/A | Cannot test via ZAP |
-| A10:2021 – Server-Side Request Forgery | ✅ Tested | No SSRF vulnerabilities found |
+### 🎯 OWASP Top 10 (2021) Mapping
+
+| # | OWASP Category | Status | Findings |
+|---|----------------|--------|----------|
+| 1 | A01 – Broken Access Control | ⚠️ Partially Tested | No critical issues found in scan |
+| 2 | A02 – Cryptographic Failures | 🟡 Found | HTTP Only Site (Medium) |
+| 3 | A03 – Injection | ✅ Tested | No SQL/XSS injection found |
+| 4 | A04 – Insecure Design | ⚠️ Found | Missing security headers |
+| 5 | A05 – Security Misconfiguration | 🟡 Found | CSP, X-Frame-Options, HTTPS missing |
+| 6 | A06 – Vulnerable Components | ✅ Addressed | (See Snyk analysis) |
+| 7 | A07 – Auth Failures | ⚠️ Partial | See manual testing in Task 3.5 |
+| 8 | A08 – Data Integrity Failures | 🟡 Found | Sub-Resource Integrity missing |
+| 9 | A09 – Logging Failures | ℹ️ N/A | Cannot test via ZAP |
+| 10 | A10 – SSRF | ✅ Tested | No SSRF vulnerabilities found |
+
+> **🔐 Authentication Testing Note:** The automated ZAP scan ran without authentication configuration due to Docker CLI limitations with JWT-based authentication. However, comprehensive authenticated API security testing was performed manually and is documented in Task 3.5 (`zap-api-security-analysis.md`), covering authentication bypass, authorization flaws (IDOR), session management, and JWT security.
 
 ---
 
-## 2. Medium Severity Vulnerabilities
+## 📸 Visual Evidence
 
-### 2.1 CSP: Failure to Define Directive with No Fallback
+### ZAP Active Scan Report Screenshot
 
-- **Risk:** Medium (High Confidence)
-- **CWE:** CWE-693 - Protection Mechanism Failure
-- **WASC:** WASC-15 - Application Misconfiguration
-- **OWASP:** A05:2021 – Security Misconfiguration
-- **Instances:** 2 URLs affected
+![ZAP Active Scan Results - Overview](zap-active-report.png)
+
+*Figure 1: OWASP ZAP active scan results showing 13 alert types with 5 medium severity issues before implementing security fixes. The scan tested 8 URLs with OWASP Top 10 policy.*
+
+**Key Findings Visible in Screenshot:**
+- ⚠️ 5 Medium severity alerts (security misconfigurations)
+- 🔵 4 Low severity alerts (security improvements)
+- ℹ️ 4 Informational alerts (awareness)
+- Primary concerns: Missing CSP, X-Frame-Options, HTTP Only Site
+
+---
+
+## ⚠️ 2. Medium Severity Vulnerabilities
+
+### 🟡 Finding #1: CSP - Failure to Define Directive with No Fallback
+
+| Property | Value |
+|----------|-------|
+| **Alert Name** | CSP: Failure to Define Directive with No Fallback |
+| **Risk Level** | 🟡 Medium (High Confidence) |
+| **CWE** | [CWE-693](https://cwe.mitre.org/data/definitions/693.html) - Protection Mechanism Failure |
+| **WASC** | WASC-15 - Application Misconfiguration |
+| **OWASP Category** | A05:2021 – Security Misconfiguration |
+| **Instances** | 2 URLs affected |
 
 #### URLs Affected:
 1. `http://host.docker.internal:4100/robots.txt`
@@ -702,18 +716,13 @@ The active scan revealed **0 High severity vulnerabilities** and **5 Medium seve
 
 ---
 
-## Exported Reports
+## Exported Reports and Evidence
 
 All scan results have been exported in multiple formats:
 
 - **HTML Report:** `zap-active-report.html`
-- **Markdown Report:** `zap-active-report.md`
 - **XML Report:** `zap-active-report.xml`
 - **JSON Report:** `zap-active-report.json`
 
----
-
-*Analysis completed: November 25, 2025*  
-*Analyst: Security Assessment Team*  
-*Tool: OWASP ZAP (Zed Attack Proxy)*  
-*Status: Active scan completed, fixes partially implemented*
+**Evidence Screenshots:**
+- `zap-active-report.png` - Summary showing 13 alerts (0 High, 5 Medium, 4 Low, 4 Informational)
