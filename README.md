@@ -1,7 +1,7 @@
 # SWE302 Software Engineering - Course Assignments
 
 **Course:** SWE302 - Software Engineering  
-**Institution:** [Your University Name]  
+**Institution:** College of Science and Technology  
 **Academic Year:** 2025  
 **Project:** RealWorld Conduit Application  
 
