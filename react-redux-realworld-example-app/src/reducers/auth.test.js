@@ -1,4 +1,4 @@
-import authReducer from './auth';
+import authReducer from '../reducers/auth';
 import {
   LOGIN,
   REGISTER,
@@ -9,12 +9,12 @@ import {
 } from '../constants/actionTypes';
 
 describe('auth reducer', () => {
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     expect(authReducer(undefined, {})).toEqual({});
   });
 
   describe('LOGIN action', () => {
-    it('should handle successful LOGIN', () => {
+    test('should handle successful LOGIN', () => {
       const action = {
         type: LOGIN,
         error: false,
@@ -31,7 +31,7 @@ describe('auth reducer', () => {
       expect(newState.errors).toBe(null);
     });
 
-    it('should handle LOGIN with errors', () => {
+    test('should handle LOGIN with errors', () => {
       const action = {
         type: LOGIN,
         error: true,
@@ -48,7 +48,7 @@ describe('auth reducer', () => {
       });
     });
 
-    it('should handle LOGIN error without payload', () => {
+    test('should handle LOGIN error without payload', () => {
       const action = {
         type: LOGIN,
         error: true
@@ -60,7 +60,7 @@ describe('auth reducer', () => {
   });
 
   describe('REGISTER action', () => {
-    it('should handle successful REGISTER', () => {
+    test('should handle successful REGISTER', () => {
       const action = {
         type: REGISTER,
         error: false,
@@ -77,7 +77,7 @@ describe('auth reducer', () => {
       expect(newState.errors).toBe(null);
     });
 
-    it('should handle REGISTER with validation errors', () => {
+    test('should handle REGISTER with validation errors', () => {
       const action = {
         type: REGISTER,
         error: true,
@@ -98,7 +98,7 @@ describe('auth reducer', () => {
   });
 
   describe('ASYNC_START action', () => {
-    it('should set inProgress to true for LOGIN subtype', () => {
+    test('should set inProgress to true for LOGIN subtype', () => {
       const action = {
         type: ASYNC_START,
         subtype: LOGIN
@@ -109,7 +109,7 @@ describe('auth reducer', () => {
       expect(newState.email).toBe('test@test.com');
     });
 
-    it('should set inProgress to true for REGISTER subtype', () => {
+    test('should set inProgress to true for REGISTER subtype', () => {
       const action = {
         type: ASYNC_START,
         subtype: REGISTER
@@ -120,7 +120,7 @@ describe('auth reducer', () => {
       expect(newState.username).toBe('testuser');
     });
 
-    it('should not modify state for other subtypes', () => {
+    test('should not modify state for other subtypes', () => {
       const action = {
         type: ASYNC_START,
         subtype: 'SOME_OTHER_ACTION'
@@ -132,7 +132,7 @@ describe('auth reducer', () => {
   });
 
   describe('UPDATE_FIELD_AUTH action', () => {
-    it('should update email field', () => {
+    test('should update email field', () => {
       const action = {
         type: UPDATE_FIELD_AUTH,
         key: 'email',
@@ -142,7 +142,7 @@ describe('auth reducer', () => {
       expect(newState.email).toBe('newemail@test.com');
     });
 
-    it('should update password field', () => {
+    test('should update password field', () => {
       const action = {
         type: UPDATE_FIELD_AUTH,
         key: 'password',
@@ -152,7 +152,7 @@ describe('auth reducer', () => {
       expect(newState.password).toBe('newpassword123');
     });
 
-    it('should update username field', () => {
+    test('should update username field', () => {
       const action = {
         type: UPDATE_FIELD_AUTH,
         key: 'username',
@@ -162,7 +162,7 @@ describe('auth reducer', () => {
       expect(newState.username).toBe('newusername');
     });
 
-    it('should preserve existing state when updating', () => {
+    test('should preserve existing state when updating', () => {
       const action = {
         type: UPDATE_FIELD_AUTH,
         key: 'password',
@@ -177,7 +177,7 @@ describe('auth reducer', () => {
   });
 
   describe('Page unload actions', () => {
-    it('should reset state on LOGIN_PAGE_UNLOADED', () => {
+    test('should reset state on LOGIN_PAGE_UNLOADED', () => {
       const action = { type: LOGIN_PAGE_UNLOADED };
       const initialState = {
         email: 'test@test.com',
@@ -188,7 +188,7 @@ describe('auth reducer', () => {
       expect(newState).toEqual({});
     });
 
-    it('should reset state on REGISTER_PAGE_UNLOADED', () => {
+    test('should reset state on REGISTER_PAGE_UNLOADED', () => {
       const action = { type: REGISTER_PAGE_UNLOADED };
       const initialState = {
         email: 'test@test.com',

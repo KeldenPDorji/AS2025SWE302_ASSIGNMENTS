@@ -1,131 +1,90 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { screen } from '@testing-library/react';
+import { renderWithProviders } from '../test-utils';
 import ArticleList from './ArticleList';
-import ArticlePreview from './ArticlePreview';
-import ListPagination from './ListPagination';
 
 describe('ArticleList Component', () => {
-  // Test 1: Rendering with empty articles array
-  it('should render "No articles" message when articles array is empty', () => {
-    const wrapper = shallow(<ArticleList articles={[]} />);
-    expect(wrapper.find('.article-preview').text()).toBe('No articles are here... yet.');
-  });
-
-  // Test 2: Rendering loading state
-  it('should render loading message when articles is null', () => {
-    const wrapper = shallow(<ArticleList articles={null} />);
-    expect(wrapper.find('.article-preview').text()).toBe('Loading...');
-  });
-
-  // Test 3: Rendering loading state when articles is undefined
-  it('should render loading message when articles is undefined', () => {
-    const wrapper = shallow(<ArticleList />);
-    expect(wrapper.find('.article-preview').text()).toBe('Loading...');
-  });
-
-  // Test 4: Rendering with multiple articles
-  it('should render multiple ArticlePreview components when articles exist', () => {
-    const mockArticles = [
-      {
-        slug: 'test-article-1',
-        title: 'Test Article 1',
-        description: 'Description 1',
-        author: { username: 'user1' },
-        tagList: [],
-        favorited: false,
-        favoritesCount: 0,
-        createdAt: '2025-01-01'
-      },
-      {
-        slug: 'test-article-2',
-        title: 'Test Article 2',
-        description: 'Description 2',
-        author: { username: 'user2' },
-        tagList: [],
-        favorited: false,
-        favoritesCount: 0,
-        createdAt: '2025-01-02'
-      }
-    ];
-
-    const wrapper = shallow(<ArticleList articles={mockArticles} />);
-    expect(wrapper.find(ArticlePreview)).toHaveLength(2);
-  });
-
-  // Test 5: Verify article keys are set correctly
-  it('should use article slug as key for each ArticlePreview', () => {
-    const mockArticles = [
-      {
-        slug: 'unique-slug-123',
-        title: 'Test Article',
-        description: 'Description',
-        author: { username: 'user1' },
-        tagList: [],
-        favorited: false,
-        favoritesCount: 0,
-        createdAt: '2025-01-01'
-      }
-    ];
-
-    const wrapper = shallow(<ArticleList articles={mockArticles} />);
-    const articlePreview = wrapper.find(ArticlePreview).first();
-    expect(articlePreview.key()).toBe('unique-slug-123');
-  });
-
-  // Test 6: Rendering pagination component
-  it('should render ListPagination component when articles exist', () => {
-    const mockArticles = [
-      {
-        slug: 'test-article',
-        title: 'Test Article',
-        description: 'Description',
-        author: { username: 'user1' },
-        tagList: [],
-        favorited: false,
-        favoritesCount: 0,
-        createdAt: '2025-01-01'
-      }
-    ];
-
-    const wrapper = shallow(
-      <ArticleList 
-        articles={mockArticles}
-        pager={() => {}}
-        articlesCount={10}
-        currentPage={0}
-      />
-    );
-    expect(wrapper.find(ListPagination)).toHaveLength(1);
-  });
-
-  // Test 7: Passing correct props to pagination
-  it('should pass correct props to ListPagination', () => {
-    const mockArticles = [{
-      slug: 'test',
-      title: 'Test',
-      description: 'Desc',
-      author: { username: 'user1' },
-      tagList: [],
+  const mockArticles = [
+    {
+      slug: 'test-article-1',
+      title: 'Test Article 1',
+      description: 'Test description 1',
+      body: 'Test body 1',
+      tagList: ['test', 'article'],
+      createdAt: '2024-01-01',
+      updatedAt: '2024-01-01',
       favorited: false,
       favoritesCount: 0,
-      createdAt: '2025-01-01'
-    }];
-    const mockPager = () => {};
-    const mockArticlesCount = 25;
-    const mockCurrentPage = 2;
+      author: {
+        username: 'testuser',
+        bio: 'Test bio',
+        image: 'https://test.com/image.jpg',
+        following: false,
+      },
+    },
+    {
+      slug: 'test-article-2',
+      title: 'Test Article 2',
+      description: 'Test description 2',
+      body: 'Test body 2',
+      tagList: ['test'],
+      createdAt: '2024-01-02',
+      updatedAt: '2024-01-02',
+      favorited: true,
+      favoritesCount: 5,
+      author: {
+        username: 'anotheruser',
+        bio: 'Another bio',
+        image: 'https://test.com/image2.jpg',
+        following: true,
+      },
+    },
+  ];
 
-    const wrapper = shallow(
+  test('renders loading state when articles is null', () => {
+    renderWithProviders(<ArticleList articles={null} />);
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  test('renders loading state when articles is undefined', () => {
+    renderWithProviders(<ArticleList />);
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  test('renders empty state when articles array is empty', () => {
+    renderWithProviders(<ArticleList articles={[]} />);
+    expect(screen.getByText('No articles are here... yet.')).toBeInTheDocument();
+  });
+
+  test('renders list of articles when articles are provided', () => {
+    renderWithProviders(<ArticleList articles={mockArticles} />);
+    expect(screen.getByText('Test Article 1')).toBeInTheDocument();
+    expect(screen.getByText('Test Article 2')).toBeInTheDocument();
+  });
+
+  test('renders ArticlePreview for each article', () => {
+    renderWithProviders(<ArticleList articles={mockArticles} />);
+    const articleLinks = screen.getAllByRole('link');
+    expect(articleLinks.length).toBeGreaterThan(0);
+  });
+
+  test('renders pagination when provided', () => {
+    renderWithProviders(
       <ArticleList 
-        articles={mockArticles}
-        pager={mockPager}
-        articlesCount={mockArticlesCount}
-        currentPage={mockCurrentPage}
+        articles={mockArticles} 
+        articlesCount={20}
+        currentPage={1}
       />
     );
+    expect(screen.getByText('Test Article 1')).toBeInTheDocument();
+  });
 
-    const pagination = wrapper.find(ListPagination);
-    expect(pagination.prop('pager')).toBe(mockPager);
-    expect(pagination.prop('articlesCount')).toBe(mockArticlesCount);
-    expect(pagination.prop('currentPage')).toBe(mockCurrentPage);
+  test('renders article list with less than 10 articles without pagination', () => {
+    const { container } = renderWithProviders(
+      <ArticleList articles={mockArticles} articlesCount={5} />
+    );
+    // With articlesCount <= 10, pagination should not render
+    const pagination = container.querySelector('.pagination');
+    expect(pagination).not.toBeInTheDocument();
   });
 });

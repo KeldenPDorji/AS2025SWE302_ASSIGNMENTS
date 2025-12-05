@@ -1,4 +1,4 @@
-import editorReducer from './editor';
+import editorReducer from '../reducers/editor';
 import {
   EDITOR_PAGE_LOADED,
   EDITOR_PAGE_UNLOADED,
@@ -10,12 +10,12 @@ import {
 } from '../constants/actionTypes';
 
 describe('editor reducer', () => {
-  it('should return the initial state', () => {
+  test('should return the initial state', () => {
     expect(editorReducer(undefined, {})).toEqual({});
   });
 
   describe('EDITOR_PAGE_LOADED action', () => {
-    it('should load existing article for editing', () => {
+    test('should load existing article for editing', () => {
       const action = {
         type: EDITOR_PAGE_LOADED,
         payload: {
@@ -37,7 +37,7 @@ describe('editor reducer', () => {
       expect(newState.tagInput).toBe('');
     });
 
-    it('should initialize empty form for new article', () => {
+    test('should initialize empty form for new article', () => {
       const action = {
         type: EDITOR_PAGE_LOADED,
         payload: null
@@ -51,7 +51,7 @@ describe('editor reducer', () => {
       expect(newState.tagInput).toBe('');
     });
 
-    it('should clear tagInput even when loading existing article', () => {
+    test('should clear tagInput even when loading existing article', () => {
       const initialState = {
         tagInput: 'old-tag'
       };
@@ -73,7 +73,7 @@ describe('editor reducer', () => {
   });
 
   describe('EDITOR_PAGE_UNLOADED action', () => {
-    it('should reset state', () => {
+    test('should reset state', () => {
       const initialState = {
         articleSlug: 'test-slug',
         title: 'Test Title',
@@ -89,7 +89,7 @@ describe('editor reducer', () => {
   });
 
   describe('ARTICLE_SUBMITTED action', () => {
-    it('should handle successful submission', () => {
+    test('should handle successful submission', () => {
       const initialState = {
         title: 'Test',
         inProgress: true
@@ -108,7 +108,7 @@ describe('editor reducer', () => {
       expect(newState.errors).toBe(null);
     });
 
-    it('should handle submission errors', () => {
+    test('should handle submission errors', () => {
       const initialState = {
         title: 'Test',
         inProgress: true
@@ -133,7 +133,7 @@ describe('editor reducer', () => {
   });
 
   describe('ASYNC_START action', () => {
-    it('should set inProgress for ARTICLE_SUBMITTED subtype', () => {
+    test('should set inProgress for ARTICLE_SUBMITTED subtype', () => {
       const action = {
         type: ASYNC_START,
         subtype: ARTICLE_SUBMITTED
@@ -146,7 +146,7 @@ describe('editor reducer', () => {
       expect(newState.title).toBe('Test Title');
     });
 
-    it('should not modify state for other subtypes', () => {
+    test('should not modify state for other subtypes', () => {
       const action = {
         type: ASYNC_START,
         subtype: 'OTHER_ACTION'
@@ -160,7 +160,7 @@ describe('editor reducer', () => {
   });
 
   describe('ADD_TAG action', () => {
-    it('should add tag from tagInput to tagList', () => {
+    test('should add tag from tagInput to tagList', () => {
       const initialState = {
         tagInput: 'react',
         tagList: ['javascript']
@@ -171,7 +171,7 @@ describe('editor reducer', () => {
       expect(newState.tagInput).toBe('');
     });
 
-    it('should clear tagInput after adding tag', () => {
+    test('should clear tagInput after adding tag', () => {
       const initialState = {
         tagInput: 'testing',
         tagList: []
@@ -181,7 +181,7 @@ describe('editor reducer', () => {
       expect(newState.tagInput).toBe('');
     });
 
-    it('should add tag to empty tagList', () => {
+    test('should add tag to empty tagList', () => {
       const initialState = {
         tagInput: 'first-tag',
         tagList: []
@@ -193,7 +193,7 @@ describe('editor reducer', () => {
   });
 
   describe('REMOVE_TAG action', () => {
-    it('should remove specified tag from tagList', () => {
+    test('should remove specified tag from tagList', () => {
       const initialState = {
         tagList: ['react', 'javascript', 'testing']
       };
@@ -205,7 +205,7 @@ describe('editor reducer', () => {
       expect(newState.tagList).toEqual(['react', 'testing']);
     });
 
-    it('should not affect other tags', () => {
+    test('should not affect other tags', () => {
       const initialState = {
         tagList: ['react', 'javascript']
       };
@@ -217,7 +217,7 @@ describe('editor reducer', () => {
       expect(newState.tagList).toEqual(['javascript']);
     });
 
-    it('should handle removing non-existent tag', () => {
+    test('should handle removing non-existent tag', () => {
       const initialState = {
         tagList: ['react', 'javascript']
       };
@@ -229,7 +229,7 @@ describe('editor reducer', () => {
       expect(newState.tagList).toEqual(['react', 'javascript']);
     });
 
-    it('should handle empty tagList', () => {
+    test('should handle empty tagList', () => {
       const initialState = {
         tagList: []
       };
@@ -243,7 +243,7 @@ describe('editor reducer', () => {
   });
 
   describe('UPDATE_FIELD_EDITOR action', () => {
-    it('should update title field', () => {
+    test('should update title field', () => {
       const action = {
         type: UPDATE_FIELD_EDITOR,
         key: 'title',
@@ -253,7 +253,7 @@ describe('editor reducer', () => {
       expect(newState.title).toBe('New Title');
     });
 
-    it('should update description field', () => {
+    test('should update description field', () => {
       const action = {
         type: UPDATE_FIELD_EDITOR,
         key: 'description',
@@ -263,7 +263,7 @@ describe('editor reducer', () => {
       expect(newState.description).toBe('New Description');
     });
 
-    it('should update body field', () => {
+    test('should update body field', () => {
       const action = {
         type: UPDATE_FIELD_EDITOR,
         key: 'body',
@@ -273,7 +273,7 @@ describe('editor reducer', () => {
       expect(newState.body).toBe('New Body Content');
     });
 
-    it('should update tagInput field', () => {
+    test('should update tagInput field', () => {
       const action = {
         type: UPDATE_FIELD_EDITOR,
         key: 'tagInput',
@@ -283,7 +283,7 @@ describe('editor reducer', () => {
       expect(newState.tagInput).toBe('new-tag');
     });
 
-    it('should preserve existing fields when updating', () => {
+    test('should preserve existing fields when updating', () => {
       const initialState = {
         title: 'Existing Title',
         description: 'Existing Description',

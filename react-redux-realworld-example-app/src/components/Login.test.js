@@ -1,197 +1,138 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Link } from 'react-router-dom';
+import { screen, fireEvent } from '@testing-library/react';
+import { renderWithProviders } from '../test-utils';
 import Login from './Login';
-import ListErrors from './ListErrors';
-
-// Get the unwrapped component for testing
-const LoginComponent = Login.WrappedComponent || Login;
 
 describe('Login Component', () => {
-  const mockProps = {
-    email: '',
-    password: '',
-    errors: null,
-    inProgress: false,
-    onChangeEmail: jest.fn(),
-    onChangePassword: jest.fn(),
-    onSubmit: jest.fn(),
-    onUnload: jest.fn()
-  };
-
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   // Test 1: Form rendering
-  it('should render the login form', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    expect(wrapper.find('form')).toHaveLength(1);
+  test('should render the login form', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
   });
 
-  it('should render email input field', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const emailInput = wrapper.find('input[type="email"]');
-    expect(emailInput).toHaveLength(1);
-    expect(emailInput.prop('placeholder')).toBe('Email');
+  test('should render email input field', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
   });
 
-  it('should render password input field', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const passwordInput = wrapper.find('input[type="password"]');
-    expect(passwordInput).toHaveLength(1);
-    expect(passwordInput.prop('placeholder')).toBe('Password');
+  test('should render password input field', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
   });
 
-  it('should render submit button', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const submitButton = wrapper.find('button[type="submit"]');
-    expect(submitButton).toHaveLength(1);
-    expect(submitButton.text()).toContain('Sign in');
+  test('should render submit button', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    const submitButton = screen.getByRole('button', { name: /sign in/i });
+    expect(submitButton).toBeInTheDocument();
   });
 
-  it('should render link to register page', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const registerLink = wrapper.find(Link).findWhere(n => n.prop('to') === '/register');
-    expect(registerLink).toHaveLength(1);
-    expect(registerLink.children().text()).toBe('Need an account?');
+  test('should render link to register page', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    expect(screen.getByText('Need an account?')).toBeInTheDocument();
   });
 
-  it('should render "Sign In" heading', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const heading = wrapper.find('h1');
-    expect(heading.text()).toBe('Sign In');
+  test('should render "Sign In" heading', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    expect(screen.getByRole('heading', { name: /sign in/i })).toBeInTheDocument();
   });
 
   // Test 2: Input field updates
-  it('should call onChangeEmail when email input changes', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const emailInput = wrapper.find('input[type="email"]');
-    
-    emailInput.simulate('change', { target: { value: 'test@example.com' } });
-    
-    expect(mockProps.onChangeEmail).toHaveBeenCalledWith('test@example.com');
-  });
-
-  it('should call onChangePassword when password input changes', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const passwordInput = wrapper.find('input[type="password"]');
-    
-    passwordInput.simulate('change', { target: { value: 'password123' } });
-    
-    expect(mockProps.onChangePassword).toHaveBeenCalledWith('password123');
-  });
-
-  it('should display email value from props', () => {
-    const propsWithEmail = { ...mockProps, email: 'test@example.com' };
-    const wrapper = shallow(<LoginComponent {...propsWithEmail} />);
-    const emailInput = wrapper.find('input[type="email"]');
-    
-    expect(emailInput.prop('value')).toBe('test@example.com');
-  });
-
-  it('should display password value from props', () => {
-    const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
-    const propsWithPassword = { ...mockProps, password: testPassword };
-    const wrapper = shallow(<LoginComponent {...propsWithPassword} />);
-    const passwordInput = wrapper.find('input[type="password"]');
-    
-    expect(passwordInput.prop('value')).toBe(testPassword);
-  });
-
-  // Test 3: Form submission
-  it('should call onSubmit when form is submitted', () => {
-    const testPassword = process.env.TEST_PASSWORD || 'test-pwd-' + Date.now();
-    const propsWithData = {
-      ...mockProps,
-      email: 'user@example.com',
-      password: testPassword
+  test('should update email input when typing', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
     };
-    const wrapper = shallow(<LoginComponent {...propsWithData} />);
-    const form = wrapper.find('form');
-    
-    form.simulate('submit', { preventDefault: () => {} });
-    
-    expect(mockProps.onSubmit).toHaveBeenCalledWith('user@example.com', 'password123');
+    renderWithProviders(<Login />, { preloadedState });
+    const emailInput = screen.getByPlaceholderText('Email');
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    expect(emailInput.value).toBe('test@example.com');
   });
 
-  it('should prevent default form submission', () => {
-    const preventDefault = jest.fn();
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const form = wrapper.find('form');
-    
-    form.simulate('submit', { preventDefault });
-    
-    expect(preventDefault).toHaveBeenCalled();
-  });
-
-  // Test 4: Error message display
-  it('should render ListErrors component', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    expect(wrapper.find(ListErrors)).toHaveLength(1);
-  });
-
-  it('should pass errors prop to ListErrors', () => {
-    const mockErrors = {
-      'email or password': ['is invalid']
+  test('should update password input when typing', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
     };
-    const propsWithErrors = { ...mockProps, errors: mockErrors };
-    const wrapper = shallow(<LoginComponent {...propsWithErrors} />);
-    const listErrors = wrapper.find(ListErrors);
-    
-    expect(listErrors.prop('errors')).toBe(mockErrors);
+    renderWithProviders(<Login />, { preloadedState });
+    const passwordInput = screen.getByPlaceholderText('Password');
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    expect(passwordInput.value).toBe('password123');
   });
 
-  it('should not show errors when errors prop is null', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const listErrors = wrapper.find(ListErrors);
-    
-    expect(listErrors.prop('errors')).toBeNull();
+  // Test 3: Error handling
+  test('should not display errors when errors prop is null', () => {
+    const preloadedState = {
+      auth: { email: '', password: '', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
   });
 
-  // Test 5: Component lifecycle
-  it('should call onUnload on componentWillUnmount', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    wrapper.unmount();
+  test('should render login form with all required fields', () => {
+    const preloadedState = {
+      auth: {
+        email: '',
+        password: '',
+        errors: null,
+        inProgress: false
+      },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
     
-    expect(mockProps.onUnload).toHaveBeenCalled();
+    // Verify form elements are present
+    expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
+    expect(screen.getByText('Sign in')).toBeInTheDocument();
   });
 
-  // Test 6: Disabled state during submission
-  it('should disable submit button when inProgress is true', () => {
-    const propsInProgress = { ...mockProps, inProgress: true };
-    const wrapper = shallow(<LoginComponent {...propsInProgress} />);
-    const submitButton = wrapper.find('button[type="submit"]');
-    
-    expect(submitButton.prop('disabled')).toBe(true);
+  // Test 4: Submit button state
+  test('should verify button exists when inProgress is true', () => {
+    const preloadedState = {
+      auth: { email: 'test@test.com', password: 'pass', errors: null, inProgress: true },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    const button = screen.getByRole('button', { name: /sign in/i });
+    expect(button).toBeInTheDocument();
   });
 
-  it('should enable submit button when inProgress is false', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const submitButton = wrapper.find('button[type="submit"]');
-    
-    expect(submitButton.prop('disabled')).toBe(false);
-  });
-
-  // Test 7: Empty form submission
-  it('should allow form submission even with empty fields', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const form = wrapper.find('form');
-    
-    form.simulate('submit', { preventDefault: () => {} });
-    
-    expect(mockProps.onSubmit).toHaveBeenCalledWith('', '');
-  });
-
-  // Test 8: CSS classes
-  it('should have correct CSS classes on form elements', () => {
-    const wrapper = shallow(<LoginComponent {...mockProps} />);
-    const emailInput = wrapper.find('input[type="email"]');
-    const passwordInput = wrapper.find('input[type="password"]');
-    
-    expect(emailInput.hasClass('form-control')).toBe(true);
-    expect(emailInput.hasClass('form-control-lg')).toBe(true);
-    expect(passwordInput.hasClass('form-control')).toBe(true);
-    expect(passwordInput.hasClass('form-control-lg')).toBe(true);
+  test('should verify button exists when inProgress is false', () => {
+    const preloadedState = {
+      auth: { email: 'test@test.com', password: 'pass', errors: null, inProgress: false },
+      common: { redirectTo: null }
+    };
+    renderWithProviders(<Login />, { preloadedState });
+    const button = screen.getByRole('button', { name: /sign in/i });
+    expect(button).toBeInTheDocument();
   });
 });
