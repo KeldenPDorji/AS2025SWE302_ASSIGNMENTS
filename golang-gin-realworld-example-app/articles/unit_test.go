@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gosimple/slug"
 	"github.com/jinzhu/gorm"
 	"github.com/stretchr/testify/assert"
 	"realworld-backend/common"
@@ -39,7 +40,7 @@ func createMockUser(username, email string) users.UserModel {
 func createMockArticle(title, description, body string, author ArticleUserModel) ArticleModel {
 	article := ArticleModel{
 		Title:       title,
-		Slug:        title + "-slug",
+		Slug:        slug.Make(title),
 		Description: description,
 		Body:        body,
 		Author:      author,
