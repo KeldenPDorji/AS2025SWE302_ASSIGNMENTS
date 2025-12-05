@@ -17,13 +17,12 @@ jobs:
           fetch-depth: 0
       
       - name: SonarCloud Scan Backend
-        uses: SonarSource/sonarqube-scan-action@v3
+        uses: SonarSource/sonarcloud-github-action@master
         with:
           projectBaseDir: golang-gin-realworld-example-app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
   
   sonarcloud-frontend:
     name: SonarCloud Frontend Analysis
@@ -34,10 +33,9 @@ jobs:
           fetch-depth: 0
       
       - name: SonarCloud Scan Frontend
-        uses: SonarSource/sonarqube-scan-action@v3
+        uses: SonarSource/sonarcloud-github-action@master
         with:
           projectBaseDir: react-redux-realworld-example-app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io

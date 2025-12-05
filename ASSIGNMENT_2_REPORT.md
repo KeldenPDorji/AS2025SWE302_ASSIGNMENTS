@@ -2,6 +2,24 @@
 
 ---
 
+> **⚠️ TESTING & VERIFICATION NOTE (December 5, 2025)**
+> 
+> This assignment has been tested by verifying actual implementation (not just documentation review).
+> 
+> **Critical Issue Found & Fixed:**
+> - **Problem:** Backend was not appearing in SonarCloud (duplicate project keys)
+> - **Fix Applied:** Separated project keys for backend and frontend
+> - **Status:** Configuration corrected, scans triggered
+> 
+> **See detailed testing report:** `ASSIGNMENT_2_TESTING_REPORT.md`
+> 
+> **Action Required:** 
+> - Wait for backend SonarCloud scan to complete
+> - Take required screenshots from both projects
+> - Create `sonarqube-improvements.md`
+
+---
+
 ## Table of Contents
 
 1. [Executive Summary](#executive-summary)
